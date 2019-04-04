@@ -10,8 +10,6 @@ const db = require('../database');
 
 
 exports.user = function (req, res) {
-    // Vérification des paramètres
-    // TODO: gérer les sorties d'erreur
     if (!req.query.id) return res.send("y'a R");
     db.query(`SELECT * FROM personne WHERE ref_personne = ${req.query.id}`, function (error, results, fields) {
         if (error) return util.sendError(res);

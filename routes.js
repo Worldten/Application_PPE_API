@@ -2,9 +2,10 @@ module.exports = function (app) {
     // ===========================================
     // Chargement des controllers
     // ===========================================
-    const barController = require('./controllers/bienController');
+    const bienController = require('./controllers/bienController');
     const userController = require('./controllers/userController');
-    const commentController = require('./controllers/locationController');
+    const locationController = require('./controllers/locationController');
+    const messageController = require('./controllers/messageController');
 
 
     // ===========================================
@@ -14,9 +15,9 @@ module.exports = function (app) {
     // GET (récupération d'informations)
 
     // Renvoie toutes les informations d'un bar précis
-    // app.route('/get_location').get(barController.get_bar);
+    app.route('/location').get(locationController.location);
     // Renvoie une liste de bars avec toutes leurs informations
-    // app.route('/get_locations').get(barController.get_bars);
+    app.route('/locations').get(locationController.locations);
 
 
 
@@ -43,13 +44,28 @@ module.exports = function (app) {
 
     // GET (récupération d'informations)
 
-    // Renvoie toutes les informations d'un commentaire précise
-    // app.route('/get_bien').get(commentController.get_comment);
+    // Renvoie toutes les informations d'un bien précise
+    app.route('/bien').get(bienController.bien);
 
-    // Renvoie une liste de commentaires avec toutes leurs informations
-    // app.route('/get_biens').get(commentController.get_comments);
+    // Renvoie une liste de biens avec toutes leurs informations
+    app.route('/biens').get(bienController.biens);
 
+    // Renvoie toutes les informations des biens lié a un client
+    app.route('/bien/client').get(bienController.bien_client)
 
+    //POST (ajout d'information)
+    app.route('/add_bien').post(bienController.add_bien);
+
+    // ===========================================
+    // == MESSAGE Routes
+    // ===========================================
+
+    // GET (récupération d'informations)
+    app.route('/messages').get(messageController.message);
+
+    app.route('/message').get(messageController.message);
+
+    app.route('/bien/messages').get(messageController.messages_by_bien);
 
     // ===========================================
     // == DEFAULT Routes

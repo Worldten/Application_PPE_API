@@ -8,17 +8,39 @@ const util = require('../util/controllerUtil');
 const db = require('../database');
 
 
-exports.get_comment = function (req, res) {
+exports.bien = function (req, res) {
     // Vérification des paramètres
-    // TODO: gérer les sorties d'erreur
-    if (!req.query.id && !req.query.title) return res.send("y'a R");
-    if (req.query.id && req.query.title) return res.send("UN SEUL PELO!");
+    if (!req.query.id) res.send("Veuillez spécifiez un bien")
 
     // Get from ID
     if (req.query.id) {
-        return db.query(`SELECT * FROM commentaire AS c, utilisateur AS u, bar AS b WHERE commentaire_id = ${req.query.id} AND c.utilisateur_id = u.utilisateur_id AND c.bar_id = b.bar_id`, function (error, results, fields) {
+        return db.query(`SELECT * FROM bien WHERE reference_bien = ${req.query.id}`, function (error, results, fields) {
             if (error) return util.sendError(res);
-            util.sendResult(res, results, 'commentaire', 'commentaire', results.length);
+            util.sendResult(res, results, 'bien', 'bien', results.length);
         });
     }
+}
+
+exports.biens = function (req, res) {
+    db.query(`SELECT * FROM bien`, function (error, results, fields) {
+        if (error) return util.sendError(res);
+        util.sendResult(res, results, 'bien', 'bien', results.length);
+    })
+}
+
+exports.bien_client = function (req, res) {
+    db.query(`SELECT * FROM bien WHERE ref_personne = ${req.query.id}`, function (error, results, field) {
+        if (error) return util.sendError(res);
+        util.sendResult(res, results, 'bien', 'bien', results.length)
+    })
+}
+
+exports.add_bien = function (req, res) {
+    if (!req.query.add2) req.query.add2 = "";
+    console.log(req.query)
+    db.query(`INSERT INTO bien (type_bien, nom_bien, ville_bien, adresse1_bien, quartier_bien, prix_bien, surface_bien, piece_bien, charge_bien, date_constructionbien, cp_bien, adresse2_bien, ref_personne) VALUES
+    ('${req.query.type}', '${req.query.nom}', '${req.query.ville}', '${req.query.add1}', '${req.query.quartier}', '${req.query.prix}', ${req.query.surface}, ${req.query.piece}, ${req.query.charge}, '${req.query.date}', '${req.query.cp}', '${req.query.add2}', ${req.query.refpers})`, function (error, results, fields) {
+            if (error) return util.sendError(res);
+            util.sendResult(res, results, 'bien', 'bien', results.length);
+        })
 }
