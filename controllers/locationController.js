@@ -17,3 +17,11 @@ exports.location = function (req, res) {
         });
     }
 }
+
+exports.locations = function (req, res) {
+    // Get from ID
+    return db.query(`SELECT * FROM location WHERE ref_loc = ${req.query.id}`, function (error, results, fields) {
+        if (error) return util.sendError(res);
+        util.sendResult(res, results, 'commentaire', 'commentaire', results.length);
+    });
+}

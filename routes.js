@@ -36,6 +36,9 @@ module.exports = function (app) {
     // Ajoute un utilisateur
     app.route('/add_user').post(userController.add_user);
 
+    // Login
+    app.route('/login').post(userController.login);
+
 
 
     // ===========================================
@@ -61,11 +64,16 @@ module.exports = function (app) {
     // ===========================================
 
     // GET (récupération d'informations)
-    app.route('/messages').get(messageController.message);
+    app.route('/messages').get(messageController.messages);
 
+    //Message by id
     app.route('/message').get(messageController.message);
 
+    // Message by bien
     app.route('/bien/messages').get(messageController.messages_by_bien);
+
+    // Ajout message
+    app.route('/new_message').post(messageController.newMessage);
 
     // ===========================================
     // == DEFAULT Routes
