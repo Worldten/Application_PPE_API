@@ -32,3 +32,8 @@ exports.messages_by_bien = function (req, res) {
 exports.newMessage = function (req, res) {
     if (req.query.texte != "" && req.query.id_personne != "" && req.query.id_bien != "") db.query(`INSERT INTO message(texte_message, ref_personne,reference_bien) VALUES ('${req.query.texte}', '${req.query.id_personne}', '${req.query.id_bien}') `)
 }
+
+
+exports.removeMessage = function (req, res) {
+    db.query(`DELETE FROM message WHERE id_message = ${req.query.id}`);
+}

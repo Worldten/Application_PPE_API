@@ -38,4 +38,4 @@ exports.log = (message, type = "") => {
 exports.verbose = (...args) => this.log(...args, "verbose");
 exports.success = (...args) => this.log(...args, "success");
 exports.warn = (...args) => this.log(...args, "warn");
-exports.error = (...args) => this.log(...args, "error");
+exports.error = (...args) => this.log(...args, "error"); 

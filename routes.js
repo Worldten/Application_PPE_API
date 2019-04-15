@@ -16,8 +16,15 @@ module.exports = function (app) {
 
     // Renvoie toutes les informations d'un bar précis
     app.route('/location').get(locationController.location);
+
     // Renvoie une liste de bars avec toutes leurs informations
     app.route('/locations').get(locationController.locations);
+
+    // Ajout d'une location
+    app.route('/add_location').post(locationController.add_location);
+
+    // Remove location
+    app.route('/remove_location').delete(locationController.removeLocation);
 
 
 
@@ -39,6 +46,11 @@ module.exports = function (app) {
     // Login
     app.route('/login').post(userController.login);
 
+    // Remove user
+    app.route('/remove_user').delete(userController.removeUser);
+
+    // Changement de pwd
+    app.route('/change_info').patch(userController.change_info);
 
 
     // ===========================================
@@ -56,8 +68,23 @@ module.exports = function (app) {
     // Renvoie toutes les informations des biens lié a un client
     app.route('/bien/client').get(bienController.bien_client)
 
+    // Renvoie touts les biens prix asc
+    app.route('/bienasc').get(bienController.biensasc);
+
+    // Renvoie touts les biens prix desc
+    app.route('/biendesc').get(bienController.biendesc);
+
     //POST (ajout d'information)
     app.route('/add_bien').post(bienController.add_bien);
+
+    // PUT 
+    app.route('/change_autorise').patch(bienController.change_autorisations);
+
+    // Remove bien
+    app.route('/remove_bien').delete(bienController.removeBien);
+
+    // Bien avec les filtes
+    app.route('/bien_filtre').post(bienController.bienFiltre);
 
     // ===========================================
     // == MESSAGE Routes
@@ -73,7 +100,10 @@ module.exports = function (app) {
     app.route('/bien/messages').get(messageController.messages_by_bien);
 
     // Ajout message
-    app.route('/new_message').post(messageController.newMessage);
+    app.route('/add_message').post(messageController.newMessage);
+
+    // Remove message
+    app.route('/remove_message').delete(messageController.removeMessage);
 
     // ===========================================
     // == DEFAULT Routes
