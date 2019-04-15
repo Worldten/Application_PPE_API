@@ -40,10 +40,14 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     // Activation CORS 
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization");
     next();
 });
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8082, function () {

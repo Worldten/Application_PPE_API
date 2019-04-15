@@ -42,7 +42,6 @@ exports.add_user = function (req, res) {
 exports.login = function (req, res) {
     db.query(`SELECT mdp_personne, ref_personne FROM personne WHERE mail_personne = '${req.query.mail}'`, function (error, results, fields) {
         if (error) return util.sendError(res);
-        // util.sendResult(res, results, 'personne', 'personne', results.length);
         if (req.query.mdp == results[0].mdp_personne) {
             util.sendResult(res, results[0].ref_personne, 'personne', 'personne', results.length);
         }
