@@ -44,11 +44,6 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization");
     next();
 });
-
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8082, function () {
     const port = server.address().port;

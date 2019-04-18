@@ -65,6 +65,9 @@ module.exports = function (app) {
     // Renvoie une liste de biens avec toutes leurs informations
     app.route('/biens').get(bienController.biens);
 
+    // Renvoie une liste de biens en attente avec toutes leurs informations
+    app.route('/biensAttente').get(bienController.biens_attente);
+
     // Renvoie toutes les informations des biens lié a un client
     app.route('/bien/client').get(bienController.bien_client)
 

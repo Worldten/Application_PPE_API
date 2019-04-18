@@ -22,7 +22,14 @@ exports.bien = function (req, res) {
 }
 
 exports.biens = function (req, res) {
-    db.query(`SELECT * FROM bien`, function (error, results, fields) {
+    db.query(`SELECT * FROM bien WHERE autorise_bien != 'En attente'`, function (error, results, fields) {
+        if (error) return util.sendError(res);
+        util.sendResult(res, results, 'bien', 'bien', results.length);
+    })
+}
+
+exports.biens_attente = function (req, res) {
+    db.query(`SELECT * FROM bien WHERE autorise_bien = 'En attente'`, function (error, results, fields) {
         if (error) return util.sendError(res);
         util.sendResult(res, results, 'bien', 'bien', results.length);
     })
@@ -51,7 +58,7 @@ exports.bien_client = function (req, res) {
 
 exports.add_bien = function (req, res) {
     if (!req.query.add2) req.query.add2 = "";
-    db.query(`INSERT INTO bien (type_bien, nom_bien, ville_bien, adresse1_bien, quartier_bien, prix_bien, surface_bien, piece_bien, charge_bien, date_constructionbien, cp_bien, adresse2_bien, ref_personne, autorise_bien) VALUES
+    db.query(`INSERT INTO bien (type_bien, nom_bien, ville_bien, adresse1_bien, quartier_bien, prix_bien, surface_bien, piece_bien, charge_bien, date_constructionbien, cp_bien, adresse2_bien, ref_personne, autorise_bien) VALUESEn attente
     ('${req.query.type}', '${req.query.nom}', '${req.query.ville}', '${req.query.add1}', '${req.query.quartier}', '${req.query.prix}', ${req.query.surface}, ${req.query.piece}, ${req.query.charge}, '${req.query.date}', '${req.query.cp}', '${req.query.add2}', ${req.query.refpers}, 'En attente')`, function (error, results, fields) {
             if (error) return util.sendError(res);
             util.sendResult(res, results, 'bien', 'bien', results.length);
